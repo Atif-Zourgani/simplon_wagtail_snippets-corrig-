@@ -1,25 +1,21 @@
+
+
+
+
 {% extends "base.html" %}
-
+{% load static %}
+{% load wagtailimages_tags %} # l'outil pour generer la balise img dynamique de wagtail
 {% block body_class %}template-coachpage{% endblock %}
-
 {% block content %}
-
-<header>
-    <strong>Coach Max</strong>
-    <nav>
-        <a href="/">Accueil</a>
-        <a href="/le-coach/">Le Coach</a>
-        <a href="/nos-cours/">Nos cours</a>
-        <a href="/contact/">Contact</a>
-    </nav>
-</header>
 
 <div class="content">
     <h1>Le Coach</h1>
 
-    <div class="image-placeholder">Votre image ici</div>
+    {% comment %} <img src="{% static 'images/coach.png' %} " alt="image logo coach max" class="page-image"> {% endcomment %}
 
-    <p>
+    {% image page.photo fill-800x600 class="page-image" alt="image de one piece, luffy " %}
+
+    <p>  
         Je m'appelle Max, coach sportif depuis plus de dix ans. J'ai accompagné
         des dizaines de personnes dans leur remise en forme, en adaptant chaque
         séance à leurs objectifs et à leur rythme.
@@ -32,3 +28,5 @@
 </div>
 
 {% endblock content %}
+
+

@@ -5,15 +5,6 @@
 
 {% block content %}
 
-<header>
-    <strong>Coach Max</strong>
-    <nav>
-        <a href="/">Accueil</a>
-        <a href="/le-coach/">Le Coach</a>
-        <a href="/nos-cours/">Nos cours</a>
-        <a href="/contact/">Contact</a>
-    </nav>
-</header>
 
 <img class="page-image" src="{% static 'images/banniere-cours.svg' %}" alt="Un cours collectif en action">
 
@@ -21,26 +12,13 @@
     <h1>Nos cours</h1>
 
     <ul class="cours-list">
-        <li class="cours-card">
-            <h3>Cardio Boost</h3>
-            <p>Lundi et jeudi, 18h00. Niveau intermédiaire.</p>
-            <p>Un enchaînement intense pour travailler l'endurance et brûler un maximum de calories.</p>
-        </li>
-        <li class="cours-card">
-            <h3>Renforcement musculaire</h3>
-            <p>Mardi, 19h00. Tous niveaux.</p>
-            <p>Travail ciblé des principaux groupes musculaires, avec ou sans matériel.</p>
-        </li>
-        <li class="cours-card">
-            <h3>Stretching &amp; mobilité</h3>
-            <p>Mercredi, 12h30. Tous niveaux.</p>
-            <p>Une séance douce pour améliorer la souplesse et prévenir les blessures.</p>
-        </li>
-        <li class="cours-card">
-            <h3>Coaching individuel</h3>
-            <p>Sur rendez-vous.</p>
-            <p>Un programme entièrement personnalisé, construit avec vous selon vos objectifs.</p>
-        </li>
+        {% for cours in cours_list %}
+            <li class="cours-card">
+                <h3>{{cours.nom}}</h3>
+                <p>{{cours.horaire}}. {{cours.niveau}}.</p>
+                <p>{{cours.description}}.</p>
+            </li>
+        {% endfor %}
     </ul>
 </div>
 
