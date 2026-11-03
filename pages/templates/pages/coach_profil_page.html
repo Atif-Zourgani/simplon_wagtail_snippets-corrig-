@@ -1,0 +1,20 @@
+
+
+
+
+
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+    <h1>Notre équipe de coach</h1>
+
+    <h2>{{page.nom}}</h2>
+    {% image page.photo fill-400x400 class="page-image" alt="{{page.bio}}" %}
+    <p>{{page.specialite|richtext}}</p>
+    <p>{{page.bio|richtext}}</p>
+    <a href="{% pageurl page.get_parent %}">retour</a>
+
+
+{% endblock content %}  

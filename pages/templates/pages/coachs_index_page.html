@@ -1,0 +1,24 @@
+
+
+
+
+
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+
+    <h1>Notre équipe de coach</h1>
+    {{page.intro|richtext}}
+
+    <ul>
+    {% for coach in coachs  %}
+        <li>
+           <h2>{{coach.nom}}</h2>
+           <p>{{coach.specialite}}</p>
+           <a href="{% pageurl coach %}">voir</a>
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endblock content %}
