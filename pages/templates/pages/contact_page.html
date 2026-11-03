@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load wagtailcore_tags %}
 {% block body_class %}template-contactpage{% endblock %}
 
 {% block content %}
@@ -8,6 +8,15 @@
 
 <div class="content">
     <h1>Contact</h1>
+
+     <form action="{% pageurl page %}" method="POST">
+        {% csrf_token %}
+        {# jeton de securite obligatoire sur un formulaire POST, protege contre les attaques CSRF #}
+        {{ form.as_p }}
+        {# affiche automatiquement les 3 champs crees dans l'admin, un par ligne, sans qu'on les code nous-memes #}
+        <input type="submit" value="Envoyer">
+    </form>
+
 
     <address>
         12 rue de la Forme<br>

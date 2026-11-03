@@ -10,9 +10,11 @@ SECRET_KEY = "django-insecure-a22nsbch)hd2lzw-rmpd+lxkwutzw*$cdu0g6h_*tuomp)5d*=
 ALLOWED_HOSTS = ["*"]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
+#au lieu d'envoyer un vrai email, Django affiche son contenu dans le terminal
 
 try:
     from .local import *
 except ImportError:
     pass
+
+
