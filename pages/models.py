@@ -12,9 +12,6 @@ from modelcluster.fields import ParentalKey
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 from wagtail.fields import RichTextField
 
-
-
-
 class CoachPage(Page):
     photo = models.ForeignKey(
         "wagtailimages.Image", #pointer vers la biblio d'images wagtail
@@ -49,8 +46,7 @@ class Cours(models.Model): #dit a wagtail que ce model doit apparaitre dans l'ad
     # donne la valeur dans la variable "nom", aux snippets qu'on va créer'
     def __str__(self):
         return self.nom
-
-       
+     
 class CoursPage(Page):
     def get_context(self, request):
         #get context permet de construire les données envoyées à cette page
@@ -84,3 +80,44 @@ class ContactPage(AbstractEmailForm):
         FieldPanel("from_address"),  # l'adresse "expediteur" affichee sur l'email recu
         FieldPanel("subject"),       # le sujet de l'email envoye
     ]
+
+class CoachsIndexPage(Page):
+
+    intro = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel("intro")
+    ]
+
+    # sous cette page on ne pourras ajouter que des fiches de coach 
+    subpage_types = ["pages.CoachProfilPage"]
+
+    # va contenir des fiche coach enfant et quand on l'affiche,
+    # va les chercher pour les afficher 
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["coachs"] = CoachProfilPage.objects.child_of(self).live()
+
+        return context  
+
+class CoachProfilPage(Page):
+
+    specialite = models.CharField(max_length=100, blank=True)
+    nom = models.CharField(max_length=50)
+    photo = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+"
+        )
+    bio = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel("specialite"),
+        FieldPanel("nom"),
+        FieldPanel("photo"),
+        FieldPanel("bio")
+    ]
+
+    parent_page_types = ["pages.CoachsIndexPage"]
